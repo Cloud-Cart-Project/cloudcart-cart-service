@@ -5,24 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "carts")
-public class Cart {
+@Table(name = "maintenance_queues")
+public class MaintenanceQueue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<CartItem> items = new ArrayList<>();
+    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PendingTask> tasks = new ArrayList<>();
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
-    public List<CartItem> getItems() { return items; }
-    public void setItems(List<CartItem> items) { this.items = items; }
+
+    public List<PendingTask> getTasks() { return tasks; }
+    public void setTasks(List<PendingTask> tasks) { this.tasks = tasks; }
 }
